@@ -4,6 +4,9 @@
 # Bundle directory
 .bundle/
 
+# Vendor
+vendor/
+
 # Jekyll build output
 _site/
 

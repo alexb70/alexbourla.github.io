@@ -1,0 +1,86 @@
+# Site settings
+title: Alex Bourla - Security Engineer & Researcher
+email: hi@alexbourla.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Security engineer and researcher specializing in offensive security, red teaming, 
+  and secure system design. Expert in cloud-native security controls and threat modeling.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://alexbourla.com" # the base hostname & protocol for your site, e.g. http://example.com
+twitter_username: alexbourla
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /blog/:title/
+  projects:
+    output: true
+    permalink: /projects/:title/
+
+# Defaults
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Alex Bourla"
+  -
+    scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+
+# Plugins
+plugins:
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# SEO
+author:
+  name: Alex Bourla
+  email: hi@alexbourla.com
+  bio: Security Engineer & Researcher
+  location: United Kingdom
+  links:
+    - label: LinkedIn
+      icon: fab fa-linkedin
+      url: https://linkedin.com/in/alexbourla
+
+# Social media
+social:
+  name: Alex Bourla
+  links:
+    - https://linkedin.com/in/alexbourla 
+
+# Add these to your existing config
+url: "https://alexbourla.com"
+baseurl: ""
+
+# SEO Settings
+seo:
+  title: "Alex Bourla - Hands-on Cybersecurity Leader"
+  description: "Helping teams design and defend secure, modern systems. Expert in security engineering, threat modeling, and vCISO services."
+  keywords: "cybersecurity consultant, security engineering, threat modeling, vCISO, security automation, DevSecOps, red teaming, penetration testing, cloud security"
+  author: "Alex Bourla"
+  
+# Social Media
+social:
+  linkedin:
+    username: alexbourla 

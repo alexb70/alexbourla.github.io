@@ -167,14 +167,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            // Show loading state
-            const submitButton = contactForm.querySelector('button[type="submit"]');
-            const originalText = submitButton.textContent;
-            submitButton.textContent = 'Sending...';
-            submitButton.disabled = true;
-
-            // Form will submit to Formspree
-            // We'll handle the response via the form's action
+            // Form will submit normally to Formspree
+            // No loading state - just let it work as intended
         });
     }
 });

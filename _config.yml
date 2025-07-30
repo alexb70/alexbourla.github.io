@@ -76,7 +76,7 @@ baseurl: ""
 # SEO Settings
 seo:
   title: "Alex Bourla - Hands-on Cybersecurity Leader"
-  description: "Helping teams design and defend secure, modern systems. Expert in security engineering, threat modeling, and vCISO services."
+  description: "Helping teams defend and design secure, modern systems. Expert in security engineering, threat modeling, and vCISO services."
   keywords: "cybersecurity consultant, security engineering, threat modeling, vCISO, security automation, DevSecOps, red teaming, penetration testing, cloud security"
   author: "Alex Bourla"
   

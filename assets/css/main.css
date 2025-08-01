@@ -762,6 +762,12 @@ section {
         justify-content: flex-start;
         align-items: center;
         padding-top: 5rem;
+
+        a {
+            &:last-child {
+                margin-right: 0;
+            }
+        }
     }
 
     .hero {

@@ -167,6 +167,12 @@ a:hover {
 .nav-menu {
     display: flex;
     gap: var(--spacing-lg);
+
+    a {
+        &:last-child {
+            margin-right: -16px;
+        }
+    }
 }
 
 .nav-link {
@@ -219,10 +225,10 @@ a:hover {
 
 /* Hero Section */
 .hero {
-    padding: var(--spacing-xxl) 0;
     background: var(--gradient-primary);
     position: relative;
     overflow: hidden;
+    padding: clamp(32px, 5vw, 96px) 0;
 }
 
 .hero::before {
@@ -237,12 +243,11 @@ a:hover {
 }
 
 .hero-container {
-    max-width: 1200px;
+    max-width: 1096px;
     margin: 0 auto;
     padding: 0 var(--spacing-lg);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xxl);
     align-items: center;
     position: relative;
     z-index: 1;
@@ -256,6 +261,7 @@ a:hover {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    min-height: 68px;
 }
 
 .hero-subtitle {
@@ -324,7 +330,7 @@ a:hover {
 /* Hero Highlight */
 .hero-highlight {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     margin-top: var(--spacing-xl);
 }
@@ -758,7 +764,9 @@ section {
         padding-top: 5rem;
     }
 
-
+    .hero {
+        padding: var(--spacing-xxl) 0;
+    }
 
     .nav-menu.active {
         display: flex;
@@ -833,6 +841,10 @@ section {
     .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
+    }
+
+    .hero-highlight {
+        justify-content: center;
     }
 
     .hero-title {

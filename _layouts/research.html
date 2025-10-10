@@ -1,0 +1,204 @@
+---
+layout: default
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{{ page.title }} - Alex Bourla</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+
+    <!-- SEO -->
+    <meta name="author" content="{{ page.author | default: site.author.name }}">
+    <meta name="keywords" content="{{ page.tags | join: ', ' }}, {{ site.seo.keywords }}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!-- Security headers -->
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://plausible.io; connect-src 'self' https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:;">
+
+    <script defer data-domain="alexbourla.com" src="https://plausible.io/js/script.js"></script>
+</head>
+
+<body class="research-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/">
+                    <span class="brand-text">Alex Bourla</span>
+                    <span class="brand-subtitle">Security Engineer</span>
+                </a>
+            </div>
+
+            <div class="nav-menu" id="nav-menu">
+                <button class="nav-close" id="nav-close">&times;</button>
+                <a href="/#about" class="nav-link">About</a>
+                <a href="/#services" class="nav-link">Services</a>
+                <a href="/#research" class="nav-link">Research</a>
+                <a href="/#contact" class="nav-link">Contact</a>
+            </div>
+
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="research-main">
+        <div class="research-container">
+            <!-- Article Content -->
+            <article class="research-content">
+                <header class="research-header">
+                    <div class="breadcrumb">
+                        <a href="/">Home</a> / <a href="/#research">Research</a> / {{ page.title }}
+                    </div>
+
+                    <h1 class="research-title">{{ page.title }}</h1>
+
+                    <div class="research-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-user"></i>
+                            <span>{{ page.author | default: site.author.name }}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>{{ page.date | date: "%B %d, %Y" }}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span id="reading-time">Loading...</span>
+                        </div>
+                    </div>
+
+                    {% if page.tags %}
+                    <div class="research-tags">
+                        {% for tag in page.tags %}
+                        {% if tag contains 'CVE-' %}
+                        <span class="tag"><a href="https://security.paloaltonetworks.com/{{ tag }}" target="_blank"
+                                rel="noopener">{{ tag }}</a></span>
+                        {% else %}
+                        <span class="tag">{{ tag }}</span>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </header>
+
+                <div class="research-body">
+                    {{ content }}
+                </div>
+
+                <!-- Table of Contents -->
+                <div class="toc-section" id="toc-section">
+                    <h2>Table of Contents</h2>
+                    <nav class="toc-nav" id="toc-nav">
+                        <!-- Table of contents will be generated by JavaScript -->
+                    </nav>
+                </div>
+
+                <footer class="research-footer">
+                    <div class="share-buttons">
+                        <h4>Share this research</h4>
+                        <div class="share-links">
+                            <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ site.url }}{{ page.url }}"
+                                target="_blank" rel="noopener" class="share-btn twitter">
+                                <i class="fa-brands fa-x-twitter"></i>
+                                Post
+                            </a>
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}"
+                                target="_blank" rel="noopener" class="share-btn linkedin">
+                                <i class="fab fa-linkedin"></i>
+                                LinkedIn
+                            </a>
+                            <button class="share-btn copy-link" id="copy-link-btn">
+                                <i class="fas fa-link"></i>
+                                Copy Link
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="research-navigation">
+                        <a href="/#research" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to Research
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Alex Bourla</h3>
+                    <p>Hands-on Cybersecurity Leader</p>
+                    <p>Helping teams defend and design secure, modern systems</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/#about">About</a></li>
+                        <li><a href="/#services">Services</a></li>
+                        <li><a href="/#research">Research</a></li>
+                        <li><a href="/#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/alexbourla" target="_blank" rel="noopener">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:hi@alexbourla.com">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Alex Bourla. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/research.js"></script>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+</body>
+
+</html>

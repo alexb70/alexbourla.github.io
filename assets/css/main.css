@@ -2032,3 +2032,961 @@ code {
     color: var(--primary-color);
     font-size: 1.2rem;
 }
+
+/* Research Page Styles */
+.research-page {
+    background-color: var(--bg-primary);
+}
+
+.research-main {
+    padding-top: 80px;
+    /* Account for fixed navbar */
+    min-height: 100vh;
+}
+
+.research-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+}
+
+/* Table of Contents Section */
+.toc-section {
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    margin: var(--spacing-xl) 0;
+    border: 1px solid var(--border-color);
+}
+
+.toc-section h2 {
+    margin: 0 0 var(--spacing-lg) 0;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+/* Table of Contents */
+.toc-nav {
+    margin-bottom: 0;
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+}
+
+.toc-sublist {
+    list-style: none;
+    padding-left: var(--spacing-md);
+    margin: var(--spacing-xs) 0;
+}
+
+.toc-item {
+    margin-bottom: var(--spacing-xs);
+}
+
+.toc-link {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    border: 1px solid transparent;
+}
+
+.toc-link:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.toc-link.active {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+    font-weight: 500;
+    border-color: var(--primary-color);
+}
+
+.toc-level-3 .toc-link {
+    font-size: 0.9rem;
+    padding-left: var(--spacing-lg);
+}
+
+.toc-level-4 .toc-link {
+    font-size: 0.85rem;
+    padding-left: var(--spacing-xl);
+}
+
+.toc-empty {
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    margin: var(--spacing-md) 0;
+}
+
+
+/* Research Content */
+.research-content {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xxl);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    max-width: none;
+}
+
+.research-header {
+    margin-bottom: var(--spacing-xxl);
+    padding-bottom: var(--spacing-xl);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.breadcrumb {
+    margin-bottom: var(--spacing-md);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.breadcrumb a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent-color);
+}
+
+.research-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.2;
+}
+
+.research-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.meta-item i {
+    color: var(--primary-color);
+    width: 16px;
+}
+
+.research-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.research-tags .tag {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.research-tags .tag:hover {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+}
+
+.research-tags .tag a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.research-tags .tag a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.research-tags .tag:hover a {
+    color: var(--bg-primary);
+}
+
+/* Research Body */
+.research-body {
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.research-body h2 {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-top: var(--spacing-xxl);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.research-body h3 {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.research-body h4 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+}
+
+.research-body p {
+    margin-bottom: var(--spacing-lg);
+    color: var(--text-secondary);
+}
+
+.research-body ul,
+.research-body ol {
+    margin-bottom: var(--spacing-lg);
+    padding-left: var(--spacing-xl);
+}
+
+.research-body li {
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-secondary);
+}
+
+.research-body blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: var(--spacing-lg);
+    margin: var(--spacing-xl) 0;
+    font-style: italic;
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+}
+
+.research-body code {
+    background: var(--bg-tertiary);
+    color: var(--primary-color);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+}
+
+.research-body pre {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
+    overflow-x: auto;
+    position: relative;
+}
+
+.research-body pre code {
+    background: none;
+    padding: 0;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Syntax highlighting overrides */
+.research-body pre code .highlight {
+    background: var(--bg-tertiary);
+}
+
+.research-body pre code .c {
+    color: #6a9955;
+}
+
+/* Comment */
+.research-body pre code .err {
+    color: #f44747;
+}
+
+/* Error */
+.research-body pre code .k {
+    color: #569cd6;
+}
+
+/* Keyword */
+.research-body pre code .l {
+    color: #dcdcaa;
+}
+
+/* Literal */
+.research-body pre code .n {
+    color: #dcdcaa;
+}
+
+/* Name */
+.research-body pre code .o {
+    color: #d4d4d4;
+}
+
+/* Operator */
+.research-body pre code .p {
+    color: #d4d4d4;
+}
+
+/* Punctuation */
+.research-body pre code .cm {
+    color: #6a9955;
+}
+
+/* Comment.Multiline */
+.research-body pre code .cp {
+    color: #6a9955;
+}
+
+/* Comment.Preproc */
+.research-body pre code .c1 {
+    color: #6a9955;
+}
+
+/* Comment.Single */
+.research-body pre code .cs {
+    color: #6a9955;
+}
+
+/* Comment.Special */
+.research-body pre code .gd {
+    color: #f44747;
+}
+
+/* Generic.Deleted */
+.research-body pre code .ge {
+    font-style: italic;
+}
+
+/* Generic.Emph */
+.research-body pre code .gr {
+    color: #f44747;
+}
+
+/* Generic.Error */
+.research-body pre code .gh {
+    color: #dcdcaa;
+    font-weight: bold;
+}
+
+/* Generic.Heading */
+.research-body pre code .gi {
+    color: #b5cea8;
+}
+
+/* Generic.Inserted */
+.research-body pre code .go {
+    color: #808080;
+}
+
+/* Generic.Output */
+.research-body pre code .gp {
+    color: #dcdcaa;
+    font-weight: bold;
+}
+
+/* Generic.Prompt */
+.research-body pre code .gs {
+    font-weight: bold;
+}
+
+/* Generic.Strong */
+.research-body pre code .gu {
+    color: #dcdcaa;
+    font-weight: bold;
+}
+
+/* Generic.Subheading */
+.research-body pre code .gt {
+    color: #f44747;
+}
+
+/* Generic.Traceback */
+.research-body pre code .kc {
+    color: #569cd6;
+}
+
+/* Keyword.Constant */
+.research-body pre code .kd {
+    color: #569cd6;
+}
+
+/* Keyword.Declaration */
+.research-body pre code .kn {
+    color: #569cd6;
+}
+
+/* Keyword.Namespace */
+.research-body pre code .kp {
+    color: #569cd6;
+}
+
+/* Keyword.Pseudo */
+.research-body pre code .kr {
+    color: #569cd6;
+}
+
+/* Keyword.Reserved */
+.research-body pre code .kt {
+    color: #4ec9b0;
+}
+
+/* Keyword.Type */
+.research-body pre code .ld {
+    color: #dcdcaa;
+}
+
+/* Literal.Date */
+.research-body pre code .m {
+    color: #b5cea8;
+}
+
+/* Literal.Number */
+.research-body pre code .s {
+    color: #ce9178;
+}
+
+/* Literal.String */
+.research-body pre code .na {
+    color: #9cdcfe;
+}
+
+/* Name.Attribute */
+.research-body pre code .nb {
+    color: #dcdcaa;
+}
+
+/* Name.Builtin */
+.research-body pre code .nc {
+    color: #4ec9b0;
+}
+
+/* Name.Class */
+.research-body pre code .no {
+    color: #569cd6;
+}
+
+/* Name.Constant */
+.research-body pre code .nd {
+    color: #dcdcaa;
+}
+
+/* Name.Decorator */
+.research-body pre code .ni {
+    color: #dcdcaa;
+}
+
+/* Name.Entity */
+.research-body pre code .ne {
+    color: #dcdcaa;
+}
+
+/* Name.Exception */
+.research-body pre code .nf {
+    color: #dcdcaa;
+}
+
+/* Name.Function */
+.research-body pre code .nl {
+    color: #dcdcaa;
+}
+
+/* Name.Label */
+.research-body pre code .nn {
+    color: #dcdcaa;
+}
+
+/* Name.Namespace */
+.research-body pre code .nx {
+    color: #dcdcaa;
+}
+
+/* Name.Other */
+.research-body pre code .py {
+    color: #dcdcaa;
+}
+
+/* Name.Property */
+.research-body pre code .nt {
+    color: #569cd6;
+}
+
+/* Name.Tag */
+.research-body pre code .nv {
+    color: #9cdcfe;
+}
+
+/* Name.Variable */
+.research-body pre code .ow {
+    color: #dcdcaa;
+}
+
+/* Operator.Word */
+.research-body pre code .w {
+    color: #dcdcaa;
+}
+
+/* Text.Whitespace */
+.research-body pre code .mb {
+    color: #b5cea8;
+}
+
+/* Literal.Number.Bin */
+.research-body pre code .mf {
+    color: #b5cea8;
+}
+
+/* Literal.Number.Float */
+.research-body pre code .mh {
+    color: #b5cea8;
+}
+
+/* Literal.Number.Hex */
+.research-body pre code .mi {
+    color: #b5cea8;
+}
+
+/* Literal.Number.Integer */
+.research-body pre code .mo {
+    color: #b5cea8;
+}
+
+/* Literal.Number.Oct */
+.research-body pre code .sa {
+    color: #ce9178;
+}
+
+/* Literal.String.Affix */
+.research-body pre code .sb {
+    color: #ce9178;
+}
+
+/* Literal.String.Backtick */
+.research-body pre code .sc {
+    color: #ce9178;
+}
+
+/* Literal.String.Char */
+.research-body pre code .dl {
+    color: #ce9178;
+}
+
+/* Literal.String.Delimiter */
+.research-body pre code .sd {
+    color: #ce9178;
+}
+
+/* Literal.String.Doc */
+.research-body pre code .s2 {
+    color: #ce9178;
+}
+
+/* Literal.String.Double */
+.research-body pre code .se {
+    color: #ce9178;
+}
+
+/* Literal.String.Escape */
+.research-body pre code .sh {
+    color: #ce9178;
+}
+
+/* Literal.String.Heredoc */
+.research-body pre code .si {
+    color: #ce9178;
+}
+
+/* Literal.String.Interpol */
+.research-body pre code .sx {
+    color: #ce9178;
+}
+
+/* Literal.String.Other */
+.research-body pre code .sr {
+    color: #ce9178;
+}
+
+/* Literal.String.Regex */
+.research-body pre code .s1 {
+    color: #ce9178;
+}
+
+/* Literal.String.Single */
+.research-body pre code .ss {
+    color: #ce9178;
+}
+
+/* Literal.String.Symbol */
+.research-body pre code .bp {
+    color: #dcdcaa;
+}
+
+/* Name.Builtin.Pseudo */
+.research-body pre code .fm {
+    color: #dcdcaa;
+}
+
+/* Name.Function.Magic */
+.research-body pre code .vc {
+    color: #9cdcfe;
+}
+
+/* Name.Variable.Class */
+.research-body pre code .vg {
+    color: #9cdcfe;
+}
+
+/* Name.Variable.Global */
+.research-body pre code .vi {
+    color: #9cdcfe;
+}
+
+/* Name.Variable.Instance */
+.research-body pre code .vm {
+    color: #9cdcfe;
+}
+
+/* Name.Variable.Magic */
+.research-body pre code .il {
+    color: #b5cea8;
+}
+
+/* Literal.Number.Integer.Long */
+
+.research-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-lg) 0;
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.research-body th,
+.research-body td {
+    padding: var(--spacing-md);
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.research-body th {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.research-body td {
+    color: var(--text-secondary);
+}
+
+/* Vulnerability Summary Table Styling */
+.research-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-xl) 0;
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.research-body table th {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+    padding: var(--spacing-md);
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.research-body table td {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+    line-height: 1.5;
+}
+
+/* Color coding for vulnerability rows - only for the first table (Vulnerability Summary) */
+.research-body table:first-of-type tbody tr:nth-child(1) td {
+    background: rgba(255, 107, 53, 0.3) !important;
+    /* Light red for WON'T FIX */
+    border-left: 4px solid var(--primary-color);
+}
+
+.research-body table:first-of-type tbody tr:nth-child(2) td,
+.research-body table:first-of-type tbody tr:nth-child(3) td,
+.research-body table:first-of-type tbody tr:nth-child(4) td,
+.research-body table:first-of-type tbody tr:nth-child(5) td {
+    background: rgba(78, 205, 196, 0.3) !important;
+    /* Light green for PATCHED */
+    border-left: 4px solid var(--secondary-color);
+}
+
+/* Status column styling */
+.research-body table td:nth-child(3) {
+    font-weight: 600;
+    text-align: center;
+}
+
+/* CVE and CVSS styling */
+.research-body table td strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Version numbers styling */
+.research-body table td code {
+    background: var(--bg-tertiary);
+    color: var(--primary-color);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+}
+
+/* CVSS Score styling */
+.research-body .cvss-medium {
+    color: #ff9e6b;
+    /* Orange for medium severity */
+    font-weight: 600;
+}
+
+.research-body .cvss-high {
+    color: #ff6b35;
+    /* Red-orange for high severity */
+    font-weight: 600;
+}
+
+.research-body .cvss-critical {
+    color: #ff4757;
+    /* Red for critical severity */
+    font-weight: 600;
+}
+
+/* CVE number styling - more specific selector */
+.research-body table td strong:first-child {
+    color: var(--secondary-color);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+}
+
+.research-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: var(--spacing-lg) 0;
+    box-shadow: var(--shadow-md);
+    display: block;
+    clear: both;
+}
+
+/* Special handling for large media files */
+.research-body img[src$=".gif"] {
+    max-width: 80%;
+    margin: var(--spacing-xl) auto;
+    display: block;
+    border: 2px solid var(--border-color);
+}
+
+/* Video styling */
+.research-body video {
+    max-width: 80%;
+    margin: var(--spacing-xl) auto;
+    display: block;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+}
+
+/* Specific styling for disconnect-demo video to prevent scaling beyond native resolution */
+.research-body video.disconnect-demo {
+    max-width: 320px !important;
+    /* Half of previous size to reduce pixelation */
+    width: 320px !important;
+    height: auto !important;
+    /* Maintain aspect ratio */
+}
+
+.research-body img[src$=".png"],
+.research-body img[src$=".jpg"],
+.research-body img[src$=".jpeg"] {
+    max-width: 90%;
+    margin: var(--spacing-lg) auto;
+    display: block;
+}
+
+/* Specific images that need white backgrounds */
+.research-body img[src*="ipc-connection-verification-patched"],
+.research-body img[src*="ipc-port-comparison-diagram"] {
+    background: white;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+}
+
+.research-body a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.research-body a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+/* Research Footer */
+.research-footer {
+    margin-top: var(--spacing-xxl);
+    padding-top: var(--spacing-xl);
+    border-top: 2px solid var(--border-color);
+}
+
+.share-buttons {
+    margin-bottom: var(--spacing-xl);
+}
+
+.share-buttons h4 {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+}
+
+.share-links {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.share-btn:hover {
+    background: var(--primary-color);
+    color: var(--bg-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.share-btn.copied {
+    background: var(--secondary-color);
+    color: var(--bg-primary);
+}
+
+.research-navigation {
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .research-container {
+        padding: var(--spacing-lg);
+    }
+
+    .research-content {
+        padding: var(--spacing-xl);
+    }
+
+    .research-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .research-container {
+        padding: var(--spacing-md);
+    }
+
+    .research-content {
+        padding: var(--spacing-lg);
+    }
+
+    .research-title {
+        font-size: 1.8rem;
+    }
+
+    .research-meta {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .share-links {
+        justify-content: center;
+    }
+
+    .toc-section {
+        padding: var(--spacing-lg);
+    }
+
+    /* Responsive adjustments for large media files */
+    .research-body img[src$=".gif"] {
+        max-width: 95%;
+        margin: var(--spacing-lg) auto;
+    }
+
+    .research-body video {
+        max-width: 95%;
+        margin: var(--spacing-lg) auto;
+    }
+
+    /* Responsive behavior for disconnect-demo video */
+    .research-body video.disconnect-demo {
+        max-width: 100% !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .research-content {
+        padding: var(--spacing-md);
+    }
+
+    .research-title {
+        font-size: 1.5rem;
+    }
+
+    .research-body h2 {
+        font-size: 1.5rem;
+    }
+
+    .research-body h3 {
+        font-size: 1.2rem;
+    }
+
+    .research-body h4 {
+        font-size: 1.1rem;
+    }
+}

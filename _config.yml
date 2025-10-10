@@ -2,7 +2,7 @@
 title: Alex Bourla - Security Engineer & Researcher
 email: hi@alexbourla.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Security engineer and researcher specializing in offensive security, red teaming, 
+  Security engineer and researcher specialising in offensive security, red teaming, 
   and secure system design. Expert in cloud-native security controls and threat modeling.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://alexbourla.com" # the base hostname & protocol for your site, e.g. http://example.com
@@ -21,6 +21,9 @@ collections:
   projects:
     output: true
     permalink: /projects/:title/
+  research:
+    output: true
+    permalink: /research/:title/
 
 # Defaults
 defaults:
@@ -37,6 +40,13 @@ defaults:
       type: "projects"
     values:
       layout: "project"
+  -
+    scope:
+      path: ""
+      type: "research"
+    values:
+      layout: "research"
+      author: "Alex Bourla"
 
 # Plugins
 plugins:

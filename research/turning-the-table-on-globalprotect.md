@@ -425,7 +425,7 @@ Another interesting aspect of the disclosure process was learning that some vuln
 
 ### CVE-2025-0135 - The Ineffective Patch
 
-CVE-2025-0135 addressed the Forged IPC Disconnect for MacOS. As a reminder, exploiting this vulnerability required bypassing the security control shown below:
+CVE-2025-0135 addressed the forged IPC disconnect for macOS. As a reminder, exploiting this vulnerability required bypassing the security control shown below:
 
 | Defensive Control | Bypass Technique |
 |-------------------|------------------|

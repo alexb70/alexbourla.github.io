@@ -465,4 +465,4 @@ For example, do you _really_ need multiple endpoint security tools running on a 
 
 In many cases, such systems are already heavily restricted by firewalls, network segmentation, and access controls, and relying on those well-established layers of defence _may_ be more effective than introducing additional complex, privileged software with its own risks. When it comes to security tooling, more isn’t _always_ better. It’s about deploying the right tools in the right places, with a clear understanding of their trade-offs.
 
-And finally, if you have questions, want to collaborate, or are interested in working together to secure your systems or products, [get in touch](https://alexbourla.com/).
+And finally, if you have questions, want to collaborate, or are interested in working together to secure your systems or products, [get in touch](https://alexbourla.com/#contact).

@@ -19,7 +19,7 @@ This research was done together with the invaluable contributions of [Graham Bre
 
 ## Vulnerability Summary
 
-Between April and October 2024 we reported 5 vulnerabilities affecting Global Protect client on Mac and Linux. In July 2025 PAN patched 4 of the vulnerabilities, with one bypass remaining open as PAN didn't consider it a vulnerability that they would fix. 
+Between April and October 2024 we reported 5 vulnerabilities affecting GlobalProtect client on Mac and Linux. In July 2025 PAN patched 4 of the vulnerabilities, with one bypass remaining open as PAN didn't consider it a vulnerability that they would fix. 
 
 Please see the table below summarising the state of the reported vulnerabilities:
 
@@ -212,7 +212,7 @@ This demonstration can be extended further by exploiting the 'TCP redirection' f
 
 In the demonstration above we have not only injected a different process into the first line, but a legitimate GlobalProtect process. The path of the process highlighted is `/Applications/GlobalProtect.app/Contents/Resources/PanGpHipMp` which begins with `/Applications/GlobalProtect.app/` as required. 
 
-While the bash TCP redirect process is running, and the original `PanGPA` UI process stopped, the IPC authentication logic in PanGPS can be bypassed. If another process then connects to `localhost:4767` while the bash redirect is active, it would be further down the `lsof` output, and since `PanGPS` only checks the first line, it will find the bash redirect process (`PanGpHipMp` in the example) and validate its path, ignoring the later-connecting malicious process. This is demonstrated below:
+While the bash TCP redirect process is running, and the original `PanGPA` UI process stopped, the IPC authentication logic in `PanGPS` can be bypassed. If another process then connects to `localhost:4767` while the bash redirect is active, it would be further down the `lsof` output, and since `PanGPS` only checks the first line, it will find the bash redirect process (`PanGpHipMp` in the example) and validate its path, ignoring the later-connecting malicious process. This is demonstrated below:
 
 ![lsof bypass demo](img/ipc-lsof-bypass-demo.png)
 
@@ -260,7 +260,7 @@ Again, combining this alternative approach with our ability to forge the correct
 
 As mentioned, on the face of it, the Linux client works quite similarly to the MacOS one including components such as `PanGPS`, `PanGPA`, an IPC service listening on `localhost:4767` etc. However, attempting to send the same spoofed IPC disconnect command from a new, low-privileged process fails.
 
-This is because the security control which checks the calling process works differently on Linux and was found (in our testing, anyway!) to be robust, and could not be bypassed. Again, by reversing PanGPS, we find that on Linux the control within `PanGPS` is using the `/proc` pseudo-filesystem to determine which process initiated a connection to its IPC server. 
+This is because the security control which checks the calling process works differently on Linux and was found (in our testing, anyway!) to be robust, and could not be bypassed. Again, by reversing `PanGPS`, we find that on Linux the control within `PanGPS` is using the `/proc` pseudo-filesystem to determine which process initiated a connection to its IPC server. 
 
 This pseudo-filesystem does not exist on MacOS, only Linux, and using it, it is possible to accurately determine the calling process with relative ease, as shown in the example below: 
 ![Linux /proc pseudo-filesystem](img/linux-proc-filesystem.png)
@@ -272,7 +272,7 @@ We can do this via [dynamic linker hijacking](https://attack.mitre.org/technique
 
 #### Exploiting LD_PRELOAD environment variable
 
-By launching a legitimate PanGPA binary with `LD_PRELOAD` set to our own custom shared library, we are able to execute arbitrary code in the context of a legitimate GlobalProtect binary:
+By launching a legitimate `PanGPA` binary with `LD_PRELOAD` set to our own custom shared library, we are able to execute arbitrary code in the context of a legitimate GlobalProtect binary:
 ![LD_PRELOAD example attacker](img/linux-ld-preload-attack.png)
 
 Whilst we could use this to do a range of malicious actions, one of the most impactful for our goal is to send an encrypted disconnect IPC command to `PanGPS`. The resulting disconnect command comes from the legitimate `PanGPA` binary and is indistinguishable from valid IPC traffic, allowing us to bypass the VPN, as shown in the video below:

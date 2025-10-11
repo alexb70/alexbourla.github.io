@@ -2729,63 +2729,119 @@ img {
 .table-scroll {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    margin: var(--spacing-xl) 0;
+    margin: var(--spacing-xl) auto;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
     width: 100%;
     max-width: 100%;
 }
 
-/* Vulnerability Summary Table Styling - First table only */
-.research-body table:first-of-type {
-    width: max-content;
-    min-width: 1400px;
-    border-collapse: collapse;
-    background: var(--bg-card);
-    table-layout: auto;
-    /* Use auto layout for better content fitting */
+/* Desktop: Center table and make final column wider */
+@media (min-width: 1024px) {
+    .table-scroll {
+        max-width: 1200px;
+        margin: var(--spacing-xl) auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .research-body table:first-of-type {
+        min-width: 1200px;
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--bg-card);
+        table-layout: auto;
+        /* Use auto layout for better content fitting */
+    }
+
+    .research-body table:first-of-type th:nth-child(1),
+    .research-body table:first-of-type td:nth-child(1) {
+        min-width: 180px;
+        max-width: 200px;
+        /* Vulnerability column - compact with line breaks */
+    }
+
+    .research-body table:first-of-type th:nth-child(2),
+    .research-body table:first-of-type td:nth-child(2) {
+        min-width: 80px;
+        /* Reported column - minimal for dates */
+    }
+
+    .research-body table:first-of-type th:nth-child(3),
+    .research-body table:first-of-type td:nth-child(3) {
+        min-width: 140px;
+        /* Status column - compact for CVE info */
+    }
+
+    .research-body table:first-of-type th:nth-child(4),
+    .research-body table:first-of-type td:nth-child(4) {
+        min-width: 100px;
+        max-width: 120px;
+        /* Fixed column - narrower on desktop */
+    }
+
+    .research-body table:first-of-type th:nth-child(5),
+    .research-body table:first-of-type td:nth-child(5) {
+        min-width: 300px;
+        max-width: 400px;
+        /* Notes column - wider on desktop for better readability */
+    }
 }
 
-.research-body table:first-of-type th,
-.research-body table:first-of-type td {
-    vertical-align: top;
-    word-wrap: break-word;
-}
+/* Vulnerability Summary Table Styling - First table only (Mobile/Tablet) */
+@media (max-width: 1023px) {
+    .research-body table:first-of-type {
+        width: max-content;
+        min-width: 800px;
+        border-collapse: collapse;
+        background: var(--bg-card);
+        table-layout: auto;
+        /* Use auto layout for better content fitting */
+    }
 
-.research-body table:first-of-type th:nth-child(1),
-.research-body table:first-of-type td:nth-child(1) {
-    min-width: 350px;
-    /* Vulnerability column - wider for longer titles */
-}
+    .research-body table:first-of-type th,
+    .research-body table:first-of-type td {
+        vertical-align: top;
+        word-wrap: break-word;
+    }
 
-.research-body table:first-of-type th:nth-child(2),
-.research-body table:first-of-type td:nth-child(2) {
-    min-width: 120px;
-    /* Reported column */
-}
+    .research-body table:first-of-type th:nth-child(1),
+    .research-body table:first-of-type td:nth-child(1) {
+        min-width: 200px;
+        max-width: 220px;
+        /* Vulnerability column - compact with line breaks */
+    }
 
-.research-body table:first-of-type th:nth-child(3),
-.research-body table:first-of-type td:nth-child(3) {
-    min-width: 250px;
-    /* Status column - wider for CVE info */
-}
+    .research-body table:first-of-type th:nth-child(2),
+    .research-body table:first-of-type td:nth-child(2) {
+        min-width: 80px;
+        /* Reported column - minimal for dates */
+    }
 
-.research-body table:first-of-type th:nth-child(4),
-.research-body table:first-of-type td:nth-child(4) {
-    min-width: 150px;
-    /* Fixed column */
-}
+    .research-body table:first-of-type th:nth-child(3),
+    .research-body table:first-of-type td:nth-child(3) {
+        min-width: 160px;
+        /* Status column - compact for CVE info */
+    }
 
-.research-body table:first-of-type th:nth-child(5),
-.research-body table:first-of-type td:nth-child(5) {
-    min-width: 400px;
-    /* Notes column - wider for detailed notes */
+    .research-body table:first-of-type th:nth-child(4),
+    .research-body table:first-of-type td:nth-child(4) {
+        min-width: 100px;
+        /* Fixed column - minimal for dates */
+    }
+
+    .research-body table:first-of-type th:nth-child(5),
+    .research-body table:first-of-type td:nth-child(5) {
+        min-width: 180px;
+        max-width: 200px;
+        /* Notes column - narrow with text wrapping */
+    }
 }
 
 .research-body table th {
     background: var(--primary-color);
     color: var(--bg-primary);
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
     text-align: left;
     font-weight: 600;
     font-size: 0.9rem;
@@ -2794,26 +2850,44 @@ img {
 }
 
 .research-body table td {
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
     border-bottom: 1px solid var(--border-color);
     vertical-align: top;
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
 /* Color coding for vulnerability rows - only for the first table (Vulnerability Summary) */
-.research-body table:first-of-type tbody tr:nth-child(1) td {
+/* Use class-based selectors for reliable targeting */
+.research-body .vulnerability-summary-table tbody tr:nth-child(1) td {
     background: rgba(255, 107, 53, 0.3) !important;
     /* Light red for WON'T FIX */
     border-left: 4px solid var(--primary-color);
 }
 
-.research-body table:first-of-type tbody tr:nth-child(2) td,
-.research-body table:first-of-type tbody tr:nth-child(3) td,
-.research-body table:first-of-type tbody tr:nth-child(4) td,
-.research-body table:first-of-type tbody tr:nth-child(5) td {
+.research-body .vulnerability-summary-table tbody tr:nth-child(2) td,
+.research-body .vulnerability-summary-table tbody tr:nth-child(3) td,
+.research-body .vulnerability-summary-table tbody tr:nth-child(4) td,
+.research-body .vulnerability-summary-table tbody tr:nth-child(5) td {
     background: rgba(78, 205, 196, 0.3) !important;
     /* Light green for PATCHED */
     border-left: 4px solid var(--secondary-color);
+}
+
+/* Ensure other tables have plain backgrounds - override any inherited styling */
+.research-body .table-2 tbody tr td,
+.research-body .table-3 tbody tr td {
+    background: transparent !important;
+    border-left: none !important;
+}
+
+.research-body .table-2 tbody tr:nth-child(odd) td,
+.research-body .table-3 tbody tr:nth-child(odd) td {
+    background: transparent !important;
+}
+
+.research-body .table-2 tbody tr:nth-child(even) td,
+.research-body .table-3 tbody tr:nth-child(even) td {
+    background: transparent !important;
 }
 
 /* Status column styling */

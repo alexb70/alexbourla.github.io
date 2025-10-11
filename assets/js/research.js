@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Setup table scrolling
     setupTableScrolling();
+
+    // Add unique classes to tables for styling
+    addTableClasses();
 });
 
 function generateTOC() {
@@ -195,12 +198,16 @@ function setupActiveSectionHighlighting() {
 
 function setupTableScrolling() {
     const tables = document.querySelectorAll('.research-body table');
+    console.log('Found tables:', tables.length);
 
     tables.forEach(table => {
         // Check if table is already wrapped
         if (table.parentElement.classList.contains('table-scroll')) {
+            console.log('Table already wrapped, skipping');
             return;
         }
+
+        console.log('Wrapping table and formatting columns');
 
         // Create wrapper div
         const wrapper = document.createElement('div');
@@ -211,5 +218,55 @@ function setupTableScrolling() {
 
         // Move table into wrapper
         wrapper.appendChild(table);
+
+        // Format first column for better mobile display
+        formatFirstColumn(table);
+    });
+}
+
+function formatFirstColumn(table) {
+    const firstColumnCells = table.querySelectorAll('td:first-child, th:first-child');
+    console.log('Formatting first column cells:', firstColumnCells.length);
+
+    firstColumnCells.forEach(cell => {
+        const text = cell.textContent.trim();
+        console.log('Processing cell:', text);
+
+        // Skip if it's a header or already formatted
+        if (cell.tagName === 'TH' || cell.innerHTML.includes('<br>')) {
+            console.log('Skipping cell (header or already formatted)');
+            return;
+        }
+
+        // Format vulnerability names to break at colon
+        if (text.includes(':')) {
+            const parts = text.split(':');
+            if (parts.length === 2) {
+                const type = parts[0].trim();
+                const description = parts[1].trim();
+
+                console.log('Formatting:', type, '->', description);
+
+                // Create formatted HTML with line break
+                cell.innerHTML = `<strong>${type}:</strong><br>${description}`;
+            }
+        }
+    });
+}
+
+function addTableClasses() {
+    const tables = document.querySelectorAll('.research-body table');
+    console.log('Adding classes to tables:', tables.length);
+
+    tables.forEach((table, index) => {
+        // Add a unique class to each table
+        table.classList.add(`table-${index + 1}`);
+
+        // Add specific class for the first table (Vulnerability Summary)
+        if (index === 0) {
+            table.classList.add('vulnerability-summary-table');
+        }
+
+        console.log(`Table ${index + 1} classes:`, table.className);
     });
 }

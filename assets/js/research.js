@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Setup active section highlighting
     setupActiveSectionHighlighting();
+
+    // Setup table scrolling
+    setupTableScrolling();
 });
 
 function generateTOC() {
@@ -188,4 +191,25 @@ function setupActiveSectionHighlighting() {
 
     window.addEventListener('scroll', updateActiveSection);
     updateActiveSection(); // Initial call
+}
+
+function setupTableScrolling() {
+    const tables = document.querySelectorAll('.research-body table');
+
+    tables.forEach(table => {
+        // Check if table is already wrapped
+        if (table.parentElement.classList.contains('table-scroll')) {
+            return;
+        }
+
+        // Create wrapper div
+        const wrapper = document.createElement('div');
+        wrapper.className = 'table-scroll';
+
+        // Insert wrapper before table
+        table.parentNode.insertBefore(wrapper, table);
+
+        // Move table into wrapper
+        wrapper.appendChild(table);
+    });
 }

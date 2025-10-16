@@ -3,9 +3,11 @@ layout: research
 title: "Turning the Tables on GlobalProtect: Behind the CVEs"
 date: 2025-10-10
 author: Alex Bourla
-description: "A deep dive into vulnerabilities discovered in Palo Alto Networks' GlobalProtect VPN client, including privilege escalation and VPN bypass techniques."
-tags: [VPN Security, Privilege Escalation, macOS, Linux, CVE-2025-0135, CVE-2025-0140, CVE-2025-0141, CVE-2025-2179]
+description: "Complete technical analysis of 5 critical GlobalProtect VPN vulnerabilities (CVE-2025-0135, CVE-2025-0140, CVE-2025-0141, CVE-2025-2179) with proof-of-concept exploits, privilege escalation techniques, and VPN bypass methods for macOS and Linux."
+tags: [VPN Security, Privilege Escalation, macOS, Linux, CVE-2025-0135, CVE-2025-0140, CVE-2025-0141, CVE-2025-2179, Palo Alto Networks, GlobalProtect, VPN Bypass, Security Research, Black Hat, Vulnerability Research, Enterprise Security, Network Security, Penetration Testing, Red Team, Cybersecurity]
 permalink: /research/turning-the-tables-on-globalprotect/
+image: /research/turning-the-tables-on-globalprotect/img/globalprotect-architecture-overview.png
+keywords: "GlobalProtect vulnerabilities, Palo Alto Networks security, VPN bypass techniques, privilege escalation, CVE-2025-0135, CVE-2025-0140, CVE-2025-0141, CVE-2025-2179, enterprise VPN security, cybersecurity research, Black Hat 2025"
 ---
 
 ## Introduction
@@ -33,7 +35,7 @@ Please see the table below summarising the state of the reported vulnerabilities
 
 In the sections that follow, I'll break down each vulnerability, explain the root cause, and walk through how we found it.
 
-## Under the Hood: GlobalProtect Architecture and Attack Surface
+## GlobalProtect VPN Architecture Analysis: Attack Surface and Security Vulnerabilities
 
 ### Research Goals 
 
@@ -66,7 +68,7 @@ There is also a system extension, `GlobalProtectExtension`  which is used to imp
 
 Collectively, these components contribute to the security model of the software and each was involved in one or more of the vulnerabilities discussed in the sections that follow.
 
-## Wildcard Split Tunnel Abuse
+## GlobalProtect VPN Bypass: Wildcard Split Tunnel DNS Spoofing Attack
 
 The _Split Tunnel Traffic_ feature of the GlobalProtect gateway allows system administrators to configure certain traffic to bypass the VPN tunnel and egress directly to the internet, based on specific criteria. 
 
@@ -133,7 +135,7 @@ Bringing it all together, the video below demonstrates how this technique is use
 
 The timer in the video above demonstrates that the target domain, or more precisely, its associated IPs, remained accessible even after the bypass script was stopped. This is because GlobalProtect respects the Time To Live (TTL) value in the DNS response, and will continue to allowlist the returned IPs for as long as the TTL dictates. Since the attacker controls the DNS server, they can set an artificially long TTL, effectively keeping the IPs unblocked indefinitely with just a single spoofed DNS lookup.
 
-## Inter Process Communication (IPC) Hijacking
+## GlobalProtect IPC Hijacking: Forged Disconnect Commands
 
 One of the areas we explored was the IPC between GlobalProtect components, a key boundary between unprivileged and privileged logic. Compromising this boundary could mean the ability to influence core VPN behaviour from a non-root context.
 
@@ -300,7 +302,7 @@ To really drive this point home, here's a video showing yet another way to bypas
 
 Any low-privileged attacker who can undermine this control can effectively bypass administrator intent and break the "always-on" VPN model that GlobalProtect markets itself on.
 
-## Privilege Escalation via SUID Binary
+## GlobalProtect Privilege Escalation: SUID Binary Exploitation
 
 As previously mentioned, the `PanGPS` daemon runs as `root` in order to have the privileges to setup VPN tunnels etc. One key difference we noticed early on between MacOS and Linux is the permission set on this binary. In MacOS `PanGPS` has the Set User ID (SUID) bit set, as shown below:
 ```

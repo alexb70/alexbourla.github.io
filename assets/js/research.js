@@ -1,272 +1,265 @@
 // Research page functionality
-document.addEventListener('DOMContentLoaded', function () {
-    // Generate table of contents
-    generateTOC();
+(function () {
+    'use strict';
 
-    // Calculate reading time
-    calculateReadingTime();
+    document.addEventListener('DOMContentLoaded', function () {
+        // Generate table of contents
+        generateTOC();
 
-    // Setup smooth scrolling for TOC links
-    setupSmoothScrolling();
+        // Calculate reading time
+        calculateReadingTime();
 
-    // Setup copy link functionality
-    setupCopyLink();
+        // Setup smooth scrolling for TOC links
+        setupSmoothScrolling();
 
-    // Setup active section highlighting
-    setupActiveSectionHighlighting();
+        // Setup copy link functionality
+        setupCopyLink();
 
-    // Setup table scrolling
-    setupTableScrolling();
+        // Setup active section highlighting
+        setupActiveSectionHighlighting();
 
-    // Add unique classes to tables for styling
-    addTableClasses();
-});
+        // Setup table scrolling
+        setupTableScrolling();
 
-function generateTOC() {
-    const tocNav = document.getElementById('toc-nav');
-    const headings = document.querySelectorAll('.research-body h2, .research-body h3, .research-body h4');
+        // Add unique classes to tables for styling
+        addTableClasses();
+    });
 
-    if (headings.length === 0) {
-        tocNav.innerHTML = '<p class="toc-empty">No headings found</p>';
-        return;
-    }
+    function generateTOC() {
+        const tocNav = document.getElementById('toc-nav');
+        const headings = document.querySelectorAll('.research-body h2, .research-body h3, .research-body h4');
 
-    // Find the Vulnerability Summary section (second h2)
-    const vulnerabilitySummaryHeading = Array.from(headings).find(heading =>
-        heading.tagName === 'H2' && heading.textContent.includes('Vulnerability Summary')
-    );
-
-    if (!vulnerabilitySummaryHeading) {
-        tocNav.innerHTML = '<p class="toc-empty">No Vulnerability Summary section found</p>';
-        return;
-    }
-
-    // Create TOC HTML - only include headings after Vulnerability Summary
-    let tocHTML = '<ul class="toc-list">';
-    let currentLevel = 2;
-    let includeHeading = false;
-
-    headings.forEach((heading, index) => {
-        // Start including headings after Vulnerability Summary
-        if (heading === vulnerabilitySummaryHeading) {
-            includeHeading = true;
-            return; // Skip the Vulnerability Summary heading itself
+        if (headings.length === 0) {
+            tocNav.innerHTML = '<p class="toc-empty">No headings found</p>';
+            return;
         }
 
-        if (!includeHeading) return;
+        // Find the Vulnerability Summary section (second h2)
+        const vulnerabilitySummaryHeading = Array.from(headings).find(heading =>
+            heading.tagName === 'H2' && heading.textContent.includes('Vulnerability Summary')
+        );
 
-        const level = parseInt(heading.tagName.charAt(1));
-        const id = `heading-${index}`;
-        heading.id = id;
-
-        // Close previous levels if current level is higher
-        if (level > currentLevel) {
-            for (let i = currentLevel; i < level; i++) {
-                tocHTML += '<ul class="toc-sublist">';
-            }
-        } else if (level < currentLevel) {
-            for (let i = currentLevel; i > level; i--) {
-                tocHTML += '</ul>';
-            }
+        if (!vulnerabilitySummaryHeading) {
+            tocNav.innerHTML = '<p class="toc-empty">No Vulnerability Summary section found</p>';
+            return;
         }
 
-        tocHTML += `<li class="toc-item toc-level-${level}">
+        // Create TOC HTML - only include headings after Vulnerability Summary
+        let tocHTML = '<ul class="toc-list">';
+        let currentLevel = 2;
+        let includeHeading = false;
+
+        headings.forEach((heading, index) => {
+            // Start including headings after Vulnerability Summary
+            if (heading === vulnerabilitySummaryHeading) {
+                includeHeading = true;
+                return; // Skip the Vulnerability Summary heading itself
+            }
+
+            if (!includeHeading) return;
+
+            const level = parseInt(heading.tagName.charAt(1));
+            const id = `heading-${index}`;
+            heading.id = id;
+
+            // Close previous levels if current level is higher
+            if (level > currentLevel) {
+                for (let i = currentLevel; i < level; i++) {
+                    tocHTML += '<ul class="toc-sublist">';
+                }
+            } else if (level < currentLevel) {
+                for (let i = currentLevel; i > level; i--) {
+                    tocHTML += '</ul>';
+                }
+            }
+
+            tocHTML += `<li class="toc-item toc-level-${level}">
             <a href="#${id}" class="toc-link" data-target="${id}">${heading.textContent}</a>
         </li>`;
 
-        currentLevel = level;
-    });
+            currentLevel = level;
+        });
 
-    // Close any remaining open lists
-    for (let i = currentLevel; i > 2; i--) {
+        // Close any remaining open lists
+        for (let i = currentLevel; i > 2; i--) {
+            tocHTML += '</ul>';
+        }
+
         tocHTML += '</ul>';
-    }
+        tocNav.innerHTML = tocHTML;
 
-    tocHTML += '</ul>';
-    tocNav.innerHTML = tocHTML;
+        // Move the TOC section to appear after the Vulnerability Summary section
+        const tocSection = document.getElementById('toc-section');
 
-    // Move the TOC section to appear after the Vulnerability Summary section
-    const tocSection = document.getElementById('toc-section');
+        // Find the end of the Vulnerability Summary section (next h2 or end of content)
+        let nextSection = vulnerabilitySummaryHeading.nextElementSibling;
+        while (nextSection && nextSection.tagName !== 'H2') {
+            nextSection = nextSection.nextElementSibling;
+        }
 
-    // Find the end of the Vulnerability Summary section (next h2 or end of content)
-    let nextSection = vulnerabilitySummaryHeading.nextElementSibling;
-    while (nextSection && nextSection.tagName !== 'H2') {
-        nextSection = nextSection.nextElementSibling;
-    }
-
-    if (nextSection) {
-        // Insert TOC before the next section
-        nextSection.parentNode.insertBefore(tocSection, nextSection);
-    } else {
-        // If no next section, append to the end of the research body
-        const researchBody = document.querySelector('.research-body');
-        researchBody.appendChild(tocSection);
-    }
-}
-
-function calculateReadingTime() {
-    const content = document.querySelector('.research-body');
-    const text = content.textContent;
-    const wordsPerMinute = 200; // Average reading speed
-    const wordCount = text.split(/\s+/).length;
-    const readingTime = Math.ceil(wordCount / wordsPerMinute);
-
-    document.getElementById('reading-time').textContent = `${readingTime} min read`;
-}
-
-function setupSmoothScrolling() {
-    const tocLinks = document.querySelectorAll('.toc-link');
-
-    tocLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('data-target');
-            const targetElement = document.getElementById(targetId);
-
-            if (targetElement) {
-                const offsetTop = targetElement.offsetTop - 100; // Account for fixed navbar
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
-
-
-function setupCopyLink() {
-    const copyBtn = document.getElementById('copy-link-btn');
-
-    copyBtn.addEventListener('click', function () {
-        const url = window.location.href;
-
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(url).then(() => {
-                showCopyFeedback(this);
-            });
+        if (nextSection) {
+            // Insert TOC before the next section
+            nextSection.parentNode.insertBefore(tocSection, nextSection);
         } else {
-            // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = url;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            showCopyFeedback(this);
+            // If no next section, append to the end of the research body
+            const researchBody = document.querySelector('.research-body');
+            researchBody.appendChild(tocSection);
         }
-    });
-}
+    }
 
-function showCopyFeedback(button) {
-    const originalText = button.innerHTML;
-    button.innerHTML = '<i class="fas fa-check"></i> Copied!';
-    button.classList.add('copied');
+    function calculateReadingTime() {
+        const content = document.querySelector('.research-body');
+        const text = content.textContent;
+        const wordsPerMinute = 200; // Average reading speed
+        const wordCount = text.split(/\s+/).length;
+        const readingTime = Math.ceil(wordCount / wordsPerMinute);
 
-    setTimeout(() => {
-        button.innerHTML = originalText;
-        button.classList.remove('copied');
-    }, 2000);
-}
+        document.getElementById('reading-time').textContent = `${readingTime} min read`;
+    }
 
-function setupActiveSectionHighlighting() {
-    const tocLinks = document.querySelectorAll('.toc-link');
-    const headings = document.querySelectorAll('.research-body h2, .research-body h3, .research-body h4');
+    function setupSmoothScrolling() {
+        const tocLinks = document.querySelectorAll('.toc-link');
 
-    function updateActiveSection() {
-        let currentSection = '';
-
-        headings.forEach(heading => {
-            const rect = heading.getBoundingClientRect();
-            if (rect.top <= 150) { // 150px offset for navbar
-                currentSection = heading.id;
-            }
-        });
-
-        // Update active states
         tocLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('data-target') === currentSection) {
-                link.classList.add('active');
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    const offsetTop = targetElement.offsetTop - 100; // Account for fixed navbar
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+
+
+    function setupCopyLink() {
+        const copyBtn = document.getElementById('copy-link-btn');
+
+        copyBtn.addEventListener('click', function () {
+            const url = window.location.href;
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showCopyFeedback(this);
+                });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showCopyFeedback(this);
             }
         });
     }
 
-    window.addEventListener('scroll', updateActiveSection);
-    updateActiveSection(); // Initial call
-}
+    function showCopyFeedback(button) {
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        button.classList.add('copied');
 
-function setupTableScrolling() {
-    const tables = document.querySelectorAll('.research-body table');
-    console.log('Found tables:', tables.length);
+        setTimeout(() => {
+            button.innerHTML = originalText;
+            button.classList.remove('copied');
+        }, 2000);
+    }
 
-    tables.forEach(table => {
-        // Check if table is already wrapped
-        if (table.parentElement.classList.contains('table-scroll')) {
-            console.log('Table already wrapped, skipping');
-            return;
+    function setupActiveSectionHighlighting() {
+        const tocLinks = document.querySelectorAll('.toc-link');
+        const headings = document.querySelectorAll('.research-body h2, .research-body h3, .research-body h4');
+
+        function updateActiveSection() {
+            let currentSection = '';
+
+            headings.forEach(heading => {
+                const rect = heading.getBoundingClientRect();
+                if (rect.top <= 150) { // 150px offset for navbar
+                    currentSection = heading.id;
+                }
+            });
+
+            // Update active states
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-target') === currentSection) {
+                    link.classList.add('active');
+                }
+            });
         }
 
-        console.log('Wrapping table and formatting columns');
+        window.addEventListener('scroll', updateActiveSection);
+        updateActiveSection(); // Initial call
+    }
 
-        // Create wrapper div
-        const wrapper = document.createElement('div');
-        wrapper.className = 'table-scroll';
+    function setupTableScrolling() {
+        const tables = document.querySelectorAll('.research-body table');
 
-        // Insert wrapper before table
-        table.parentNode.insertBefore(wrapper, table);
-
-        // Move table into wrapper
-        wrapper.appendChild(table);
-
-        // Format first column for better mobile display
-        formatFirstColumn(table);
-    });
-}
-
-function formatFirstColumn(table) {
-    const firstColumnCells = table.querySelectorAll('td:first-child, th:first-child');
-    console.log('Formatting first column cells:', firstColumnCells.length);
-
-    firstColumnCells.forEach(cell => {
-        const text = cell.textContent.trim();
-        console.log('Processing cell:', text);
-
-        // Skip if it's a header or already formatted
-        if (cell.tagName === 'TH' || cell.innerHTML.includes('<br>')) {
-            console.log('Skipping cell (header or already formatted)');
-            return;
-        }
-
-        // Format vulnerability names to break at colon
-        if (text.includes(':')) {
-            const parts = text.split(':');
-            if (parts.length === 2) {
-                const type = parts[0].trim();
-                const description = parts[1].trim();
-
-                console.log('Formatting:', type, '->', description);
-
-                // Create formatted HTML with line break
-                cell.innerHTML = `<strong>${type}:</strong><br>${description}`;
+        tables.forEach(table => {
+            // Check if table is already wrapped
+            if (table.parentElement.classList.contains('table-scroll')) {
+                return;
             }
-        }
-    });
-}
 
-function addTableClasses() {
-    const tables = document.querySelectorAll('.research-body table');
-    console.log('Adding classes to tables:', tables.length);
+            // Create wrapper div
+            const wrapper = document.createElement('div');
+            wrapper.className = 'table-scroll';
 
-    tables.forEach((table, index) => {
-        // Add a unique class to each table
-        table.classList.add(`table-${index + 1}`);
+            // Insert wrapper before table
+            table.parentNode.insertBefore(wrapper, table);
 
-        // Add specific class for the first table (Vulnerability Summary)
-        if (index === 0) {
-            table.classList.add('vulnerability-summary-table');
-        }
+            // Move table into wrapper
+            wrapper.appendChild(table);
 
-        console.log(`Table ${index + 1} classes:`, table.className);
-    });
-}
+            // Format first column for better mobile display
+            formatFirstColumn(table);
+        });
+    }
+
+    function formatFirstColumn(table) {
+        const firstColumnCells = table.querySelectorAll('td:first-child, th:first-child');
+
+        firstColumnCells.forEach(cell => {
+            const text = cell.textContent.trim();
+
+            // Skip if it's a header or already formatted
+            if (cell.tagName === 'TH' || cell.innerHTML.includes('<br>')) {
+                return;
+            }
+
+            // Format vulnerability names to break at colon
+            if (text.includes(':')) {
+                const parts = text.split(':');
+                if (parts.length === 2) {
+                    const type = parts[0].trim();
+                    const description = parts[1].trim();
+
+                    // Create formatted HTML with line break
+                    cell.innerHTML = `<strong>${type}:</strong><br>${description}`;
+                }
+            }
+        });
+    }
+
+    function addTableClasses() {
+        const tables = document.querySelectorAll('.research-body table');
+
+        tables.forEach((table, index) => {
+            // Add a unique class to each table
+            table.classList.add(`table-${index + 1}`);
+
+            // Add specific class for the first table (Vulnerability Summary)
+            if (index === 0) {
+                table.classList.add('vulnerability-summary-table');
+            }
+        });
+    }
+
+})(); // End of IIFE

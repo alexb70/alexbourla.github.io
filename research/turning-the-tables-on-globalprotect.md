@@ -5,7 +5,7 @@ date: 2025-10-10
 author: Alex Bourla
 description: "A deep dive into vulnerabilities discovered in Palo Alto Networks' GlobalProtect VPN client, including privilege escalation and VPN bypass techniques."
 tags: [VPN Security, Privilege Escalation, macOS, Linux, CVE-2025-0135, CVE-2025-0140, CVE-2025-0141, CVE-2025-2179]
-permalink: /research/turning-the-table-on-globalprotect/
+permalink: /research/turning-the-tables-on-globalprotect/
 ---
 
 ## Introduction

@@ -51,6 +51,7 @@ defaults:
 # Plugins
 plugins:
   - jekyll-seo-tag
+  - jekyll-sitemap
 
 # Exclude from processing
 exclude:

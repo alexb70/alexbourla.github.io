@@ -13,7 +13,7 @@ keywords: "GlobalProtect vulnerabilities, Palo Alto Networks security, VPN bypas
 ## Introduction
 
 What happens when enterprise VPN software designed to protect your systems opens them up to exploitation instead?
-In this post, I unpack a series of vulnerabilities we discovered in Palo Alto Networks' (PAN) GlobalProtect client that could be used to bypass the VPN or escalate privileges on MacOS and Linux endpoints with GlobalProtect installed. 
+In this post, I unpack a series of vulnerabilities we discovered in Palo Alto Networks' (PAN) GlobalProtect client that could be used to bypass the VPN or escalate privileges on macOS and Linux endpoints with GlobalProtect installed. 
 
 This post builds upon a talk I gave at Black Hat USA 2025 (abstract and slides are available [here](https://www.blackhat.com/us-25/briefings/schedule/#turning-the-tables-on-globalprotect-use-and-abuse-of-palo-altos-remote-access-solution-46051), and video recording to follow on Black Hat's YouTube channel in the coming months), providing more technical details surrounding the vulnerabilities and the fundamental design decisions that directly contributed to their existence.
 
@@ -151,7 +151,7 @@ The specific details of the algorithm and keys involved, was determined through 
 ![IPC Encryption Summary](img/ipc-encryption-summary.png)
 
 Most critically, the key and initialisation vectors are not set, or stored, securely because:
-* On MacOS the key is a secure random string but is stored in an insecure location of the local user's _Login_ keychain (which is accessible from the perspective of our our considered attacker, a low privileged user)
+* On macOS the key is a secure random string but is stored in an insecure location of the local user's _Login_ keychain (which is accessible from the perspective of our our considered attacker, a low privileged user)
 * On Linux the key is simply hardcoded and can be retrieved through decompilation of the `PanGPS` binary
 * In both cases the initilisation vector is hardcoded and set to a predictable value of all zeros
 
@@ -260,17 +260,17 @@ Again, combining this alternative approach with our ability to forge the correct
 
 ### What about Linux?
 
-As mentioned, on the face of it, the Linux client works quite similarly to the MacOS one including components such as `PanGPS`, `PanGPA`, an IPC service listening on `localhost:4767` etc. However, attempting to send the same spoofed IPC disconnect command from a new, low-privileged process fails.
+As mentioned, on the face of it, the Linux client works quite similarly to the macOS one including components such as `PanGPS`, `PanGPA`, an IPC service listening on `localhost:4767` etc. However, attempting to send the same spoofed IPC disconnect command from a new, low-privileged process fails.
 
 This is because the security control which checks the calling process works differently on Linux and was found (in our testing, anyway!) to be robust, and could not be bypassed. Again, by reversing `PanGPS`, we find that on Linux the control within `PanGPS` is using the `/proc` pseudo-filesystem to determine which process initiated a connection to its IPC server. 
 
-This pseudo-filesystem does not exist on MacOS, only Linux, and using it, it is possible to accurately determine the calling process with relative ease, as shown in the example below: 
+This pseudo-filesystem does not exist on macOS, only Linux, and using it, it is possible to accurately determine the calling process with relative ease, as shown in the example below: 
 ![Linux /proc pseudo-filesystem](img/linux-proc-filesystem.png)
 
 Whilst this restricts the ability to send an IPC command from a new, attacker-controlled, process, the Linux security model opens a different path: spoof the IPC command not from an attacker-controlled binary, but from a legitimate PAN binary instead.
 
-We can do this via [dynamic linker hijacking](https://attack.mitre.org/techniques/T1574/006/). On MacOS this attack path is essentially dead-in-the-water in most cases if you have the [Software Integrity Protection (SIP)](https://support.apple.com/en-us/102149) feature enabled (which you absolutely should!). In contrast, Linux, in general, does not have such a feature leaving it open to exploitation in most cases. The table below provides a summary of the differences between MacOS and Linux:
-![Dynamic Linker Summary between MacOS and Linux](img/linux-dynamic-linker-comparison.png)
+We can do this via [dynamic linker hijacking](https://attack.mitre.org/techniques/T1574/006/). On macOS this attack path is essentially dead-in-the-water in most cases if you have the [Software Integrity Protection (SIP)](https://support.apple.com/en-us/102149) feature enabled (which you absolutely should!). In contrast, Linux, in general, does not have such a feature leaving it open to exploitation in most cases. The table below provides a summary of the differences between macOS and Linux:
+![Dynamic Linker Summary between macOS and Linux](img/linux-dynamic-linker-comparison.png)
 
 #### Exploiting LD_PRELOAD environment variable
 
@@ -304,7 +304,7 @@ Any low-privileged attacker who can undermine this control can effectively bypas
 
 ## GlobalProtect Privilege Escalation: SUID Binary Exploitation
 
-As previously mentioned, the `PanGPS` daemon runs as `root` in order to have the privileges to setup VPN tunnels etc. One key difference we noticed early on between MacOS and Linux is the permission set on this binary. In MacOS `PanGPS` has the Set User ID (SUID) bit set, as shown below:
+As previously mentioned, the `PanGPS` daemon runs as `root` in order to have the privileges to setup VPN tunnels etc. One key difference we noticed early on between macOS and Linux is the permission set on this binary. In macOS `PanGPS` has the Set User ID (SUID) bit set, as shown below:
 ```
 > ls -l /Applications/GlobalProtect.app/Contents/Resources/PanGPS
 -rwsr-xr-x  1 root  wheel  15607248  9 Jun 22:03 /Applications/GlobalProtect.app/Contents/Resources/PanGPS

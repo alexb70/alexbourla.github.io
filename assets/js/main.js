@@ -211,64 +211,7 @@
         return emailRegex.test(email);
     }
 
-    // Copy to clipboard functionality
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(function () {
-            // Show success message
-            const notification = document.createElement('div');
-            notification.className = 'copy-notification';
-            notification.textContent = 'Copied to clipboard!';
-            notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--primary-color);
-            color: var(--bg-primary);
-            padding: 1rem;
-            border-radius: var(--radius-md);
-            z-index: 10000;
-            animation: slideIn 0.3s ease;
-        `;
 
-            document.body.appendChild(notification);
-
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        });
-    }
-
-    // Add copy button to code blocks
-    document.addEventListener('DOMContentLoaded', function () {
-        const codeBlocks = document.querySelectorAll('pre');
-
-        codeBlocks.forEach(block => {
-            const copyButton = document.createElement('button');
-            copyButton.textContent = 'Copy';
-            copyButton.className = 'copy-button';
-            copyButton.style.cssText = `
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--primary-color);
-            color: var(--bg-primary);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-size: 0.875rem;
-            font-weight: 600;
-        `;
-
-            copyButton.addEventListener('click', () => {
-                const code = block.querySelector('code') || block;
-                copyToClipboard(code.textContent);
-            });
-
-            block.style.position = 'relative';
-            block.appendChild(copyButton);
-        });
-    });
 
     // Add slideIn and slideOut animations
     const slideInStyle = document.createElement('style');

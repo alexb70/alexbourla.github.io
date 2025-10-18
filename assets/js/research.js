@@ -137,7 +137,6 @@
         });
     }
 
-
     function setupCopyLink() {
         const copyBtn = document.getElementById('copy-link-btn');
 

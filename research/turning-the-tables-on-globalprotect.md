@@ -4,7 +4,7 @@ title: "Turning the Tables on GlobalProtect: Behind the CVEs"
 date: 2025-10-10
 author: Alex Bourla
 description: "Complete technical analysis of 5 critical GlobalProtect VPN vulnerabilities (CVE-2025-0135, CVE-2025-0140, CVE-2025-0141, CVE-2025-2179) with proof-of-concept exploits, privilege escalation techniques, and VPN bypass methods for macOS and Linux."
-tags: [VPN Security, Privilege Escalation, macOS, Linux, CVE-2025-0135, CVE-2025-0140, CVE-2025-0141, CVE-2025-2179, Palo Alto Networks, GlobalProtect, VPN Bypass, Security Research, Black Hat, Vulnerability Research, Enterprise Security, Network Security, Penetration Testing, Red Team, Cybersecurity]
+tags: [VPN Security, Privilege Escalation, macOS, Linux, CVE-2025-0135, CVE-2025-0140, CVE-2025-0141, CVE-2025-2179, Palo Alto Networks, GlobalProtect, VPN Bypass, Security Research, Black Hat, Vulnerability Research, Enterprise Security, Network Security, Penetration Testing, Red Team, Cybersecurity, Exploit, PoC]
 permalink: /research/turning-the-tables-on-globalprotect/
 image: /research/turning-the-tables-on-globalprotect/img/globalprotect-architecture-overview.png
 keywords: "GlobalProtect vulnerabilities, Palo Alto Networks security, VPN bypass techniques, privilege escalation, CVE-2025-0135, CVE-2025-0140, CVE-2025-0141, CVE-2025-2179, enterprise VPN security, cybersecurity research, Black Hat 2025"
@@ -15,7 +15,7 @@ keywords: "GlobalProtect vulnerabilities, Palo Alto Networks security, VPN bypas
 What happens when enterprise VPN software designed to protect your systems opens them up to exploitation instead?
 In this post, I unpack a series of vulnerabilities we discovered in Palo Alto Networks' (PAN) GlobalProtect client that could be used to bypass the VPN or escalate privileges on macOS and Linux endpoints with GlobalProtect installed. 
 
-This post builds upon a talk I gave at Black Hat USA 2025 (abstract and slides are available [here](https://www.blackhat.com/us-25/briefings/schedule/#turning-the-tables-on-globalprotect-use-and-abuse-of-palo-altos-remote-access-solution-46051), and video recording to follow on Black Hat's YouTube channel in the coming months), providing more technical details surrounding the vulnerabilities and the fundamental design decisions that directly contributed to their existence.
+This post builds upon a talk I gave at Black Hat USA 2025 (abstract and slides are available [here](https://www.blackhat.com/us-25/briefings/schedule/#turning-the-tables-on-globalprotect-use-and-abuse-of-palo-altos-remote-access-solution-46051), and the video recording is now available on [Black Hat's YouTube channel](https://youtu.be/6IGmNLs4tk8?si=d5zD2ehex8eOY4sI)), providing more technical details surrounding the vulnerabilities and the fundamental design decisions that directly contributed to their existence.
 
 This research was done together with the invaluable contributions of [Graham Brereton](https://www.linkedin.com/in/graham-brereton/) and represents both our collaborative work. 
 

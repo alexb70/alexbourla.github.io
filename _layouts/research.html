@@ -1,5 +1,4 @@
 ---
-layout: default
 ---
 
 <!DOCTYPE html>
@@ -15,7 +14,23 @@ layout: default
 
     <!-- SEO -->
     <meta name="author" content="{{ page.author | default: site.author.name }}">
-    <meta name="keywords" content="{{ page.tags | join: ', ' }}, {{ site.seo.keywords }}">
+    <meta name="keywords" content="{{ page.keywords | default: page.tags | join: ', ' }}">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ page.title }} - Alex Bourla">
+    <meta property="og:description" content="{{ page.description | default: site.description }}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+    <meta property="og:site_name" content="Alex Bourla - Cybersecurity">
+    {% if page.image %}<meta property="og:image" content="{{ site.url }}{{ page.image }}">{% endif %}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page.title }} - Alex Bourla">
+    <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+    {% if page.image %}<meta name="twitter:image" content="{{ site.url }}{{ page.image }}">{% endif %}
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
@@ -182,10 +197,34 @@ layout: default
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2025 Alex Bourla. All rights reserved.</p>
+                <p>&copy; 2026 Alex Bourla. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Structured Data: TechArticle -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "{{ page.title | escape }}",
+      "description": "{{ page.description | escape }}",
+      "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ page.author | default: site.author.name }}",
+        "url": "{{ site.url }}"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Alex Bourla",
+        "url": "{{ site.url }}"
+      },
+      "url": "{{ site.url }}{{ page.url }}",
+      "keywords": "{{ page.keywords | default: page.tags | join: ', ' }}"{% if page.image %},
+      "image": "{{ site.url }}{{ page.image }}"{% endif %}
+    }
+    </script>
 
     <!-- Scripts -->
     <script src="/assets/js/main.js"></script>

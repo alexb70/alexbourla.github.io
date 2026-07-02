@@ -2291,6 +2291,10 @@ img {
     border-radius: var(--radius-md);
 }
 
+.research-body blockquote p:last-child {
+    margin-bottom: 0;
+}
+
 .research-body code {
     background: var(--bg-tertiary);
     color: var(--primary-color);

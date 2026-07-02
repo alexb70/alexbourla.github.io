@@ -310,6 +310,35 @@ title: Home
                         </ul>
                     </div>
                 </div>
+
+                <!-- Writing Subsection -->
+                {% if site.posts.size > 0 %}
+                <div class="research-subsection">
+                    <h3 class="subsection-title">
+                        <i class="fas fa-pen-nib"></i> Writing
+                    </h3>
+
+                    {% for post in site.posts %}
+                    <div class="publication-card">
+                        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                        <p>
+                            <strong>{{ post.date | date: "%B %d, %Y" }}</strong>
+                        </p>
+                        <p>{{ post.description }}</p>
+                        <p>
+                            <a href="{{ post.url }}" class="btn btn-primary">Read Post</a>
+                        </p>
+                        {% if post.tags %}
+                        <div class="research-tags">
+                            {% for tag in post.tags %}
+                            <span class="tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
         </section>
 
